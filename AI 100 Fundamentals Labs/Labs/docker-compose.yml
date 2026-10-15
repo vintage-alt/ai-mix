@@ -1,0 +1,10 @@
+version: "3"
+services:
+  mnist-lab:
+    build: .
+    ports:
+      - "8888:8888"
+    volumes:
+      - .:/workspace
+    # If you prefer the notebook server instead of JupyterLab, override the command:
+    # command: ["jupyter", "notebook", "--ip=0.0.0.0", "--allow-root", "--NotebookApp.token=", "--NotebookApp.password="]
