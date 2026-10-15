@@ -1,0 +1,82 @@
+Here are the analyzed endpoints:
+
+**Endpoint: /api/auth/props**
+Risk Type: IDOR (Broken Access Control)
+Why it is risky: The `/api/auth/props` endpoint is related to authentication and has a `redirect` parameter. This might indicate that it's used for redirecting users after login or some other authorization-related operation. Without proper access control, an attacker could manipulate the `redirect` parameter to access unauthorized data.
+What to test:
+* Test if the `redirect` parameter can be manipulated to access unauthorized data.
+* Check if there are any authentication checks in place that prevent unauthorized access.
+Potential impact: An attacker could gain unauthorized access to sensitive data or perform actions on behalf of other users.
+
+**Endpoint: /auth_redirect.do**
+Risk Type: IDOR (Broken Access Control)
+Why it is risky: This endpoint has `sysparm_stack` and `sysparm_url` parameters, which are often used in authentication-related operations. The fact that it's seen 126 requests suggests it might be vulnerable to manipulation.
+What to test:
+* Test if the `sysparm_stack` or `sysparm_url` parameters can be manipulated to bypass authentication checks.
+* Check if there are any authentication checks in place that prevent unauthorized access.
+Potential impact: An attacker could gain unauthorized access to sensitive data or perform actions on behalf of other users.
+
+**Endpoint: /login**
+Risk Type: Authentication Flaw
+Why it is risky: This endpoint has a large number of parameters, including `timestamp`, `whiteLabelBrand`, and `geohash`. This might indicate that the login mechanism is not properly validated.
+What to test:
+* Test if the login mechanism can be bypassed by manipulating these parameters.
+* Check if there are any authentication checks in place that prevent unauthorized access.
+Potential impact: An attacker could gain unauthorized access to sensitive data or perform actions on behalf of other users.
+
+**Endpoint: /**
+Risk Type: Business Logic Flaw
+Why it is risky: This endpoint allows both GET and POST requests, which might indicate a flawed business logic. The fact that it's seen 185 requests suggests it might be vulnerable.
+What to test:
+* Test if the business logic can be manipulated by sending crafted payloads in the request body.
+* Check if there are any authentication checks in place that prevent unauthorized access.
+Potential impact: An attacker could manipulate the business logic to perform unauthorized actions or gain sensitive information.
+
+**Endpoint: /manage/v1/event-tracking/token**
+Risk Type: Token Leakage
+Why it is risky: This endpoint is related to token management and has no parameters, which might indicate a leaked token.
+What to test:
+* Test if the `token` parameter can be manipulated to access unauthorized data or perform actions on behalf of other users.
+* Check if there are any authentication checks in place that prevent unauthorized access.
+Potential impact: An attacker could gain unauthorized access to sensitive data or perform actions on behalf of other users.
+
+**Endpoint: /home/login**
+Risk Type: Authentication Flaw
+Why it is risky: This endpoint has a `nextUrl` parameter, which might indicate a flawed login mechanism. The fact that it's seen 6 requests suggests it might be vulnerable.
+What to test:
+* Test if the login mechanism can be bypassed by manipulating the `nextUrl` parameter.
+* Check if there are any authentication checks in place that prevent unauthorized access.
+Potential impact: An attacker could gain unauthorized access to sensitive data or perform actions on behalf of other users.
+
+**Endpoint: /auth_redirect**
+Risk Type: IDOR (Broken Access Control)
+Why it is risky: This endpoint has no parameters and is related to authentication, which might indicate a vulnerable redirect mechanism.
+What to test:
+* Test if the redirect mechanism can be manipulated to access unauthorized data or perform actions on behalf of other users.
+* Check if there are any authentication checks in place that prevent unauthorized access.
+Potential impact: An attacker could gain unauthorized access to sensitive data or perform actions on behalf of other users.
+
+**Endpoint: /login_with_sso.do**
+Risk Type: SSO Issue
+Why it is risky: This endpoint has a `glide_sso_id` parameter, which might indicate a vulnerable SSO mechanism.
+What to test:
+* Test if the SSO mechanism can be bypassed by manipulating the `glide_sso_id` parameter.
+* Check if there are any authentication checks in place that prevent unauthorized access.
+Potential impact: An attacker could gain unauthorized access to sensitive data or perform actions on behalf of other users.
+
+**Endpoint: /consumer/basket/graphql**
+Risk Type: GraphQL Abuse
+Why it is risky: This endpoint allows both POST and OPTIONS requests and has no parameters, which might indicate a vulnerable GraphQL API.
+What to test:
+* Test if the GraphQL API can be abused by sending crafted payloads in the request body.
+* Check if there are any authentication checks in place that prevent unauthorized access.
+Potential impact: An attacker could manipulate the business logic to perform unauthorized actions or gain sensitive information.
+
+**Endpoint: /v1/:token**
+Risk Type: Token Leakage
+Why it is risky: This endpoint has a `:token` parameter, which might indicate a leaked token.
+What to test:
+* Test if the `:token` parameter can be manipulated to access unauthorized data or perform actions on behalf of other users.
+* Check if there are any authentication checks in place that prevent unauthorized access.
+Potential impact: An attacker could gain unauthorized access to sensitive data or perform actions on behalf of other users.
+
